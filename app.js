@@ -8,7 +8,7 @@ var express = require('express'),
     stylus = require('stylus'),
     markdown = require('markdown').markdown,
     connectTimeout = require('connect-timeout'),
-    util = require('util'),
+    sys = require('sys'),
     path = require('path'),
     models = require('./models'),
     db,
@@ -39,7 +39,7 @@ emails = {
           mailOptions[k] = app.set('mailOptions')[k]
       }
 
-      console.log('[SENDING MAIL]', util.inspect(mailOptions));
+      console.log('[SENDING MAIL]', sys.inspect(mailOptions));
 
       // Only send mails in production
       if (app.settings.env == 'production') {
@@ -162,7 +162,7 @@ function NotFound(msg) {
   Error.captureStackTrace(this, arguments.callee);
 }
 
-util.inherits(NotFound, Error);
+sys.inherits(NotFound, Error);
 
 app.get('/404', function(req, res) {
   throw new NotFound;
